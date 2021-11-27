@@ -27,22 +27,67 @@ function PostBlog(){
 
       //Submit Form
       const [success,setSuccess] = React.useState('');
+
+
+      //get input field value
+      const [title, setTitle] = React.useState('');
+      const [slug, setSlug] = React.useState('');
+      const [link, setLink] = React.useState('');
+      //const [description, setDescription] = React.useState('');
+      const [excerpt, setExcerpt] = React.useState('');
+      const [featuredImage, setFeaturedImage] = React.useState("");
+      const [featured, setFeatured] = React.useState('');
+      const [category, setCategory] = React.useState('');
+      const [author, setAuthor] = React.useState('');
+      const [tags, setTags] = React.useState('');
+      
       const submitHandler = e => {
         e.preventDefault();
       
         //  setLoader(true);
-          const data = new FormData(e.target);
-          axios.post('https://newsserverapi.herokuapp.com/post', data, {
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          })
-          .then(response => {
-              console.log(response)
-            document.getElementById("blogForm").reset();
-            // setLoader(false)
-            setSuccess('Thank you for your application. We will contact you shortly.')
-          })
+      
+       
+       
+       
+
+         fetch('https://newsserverapi.herokuapp.com/post',{
+             method:"Post",
+             headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+             body:JSON.stringify({
+                "title": title,
+                "slug": slug,
+                "link": link,
+                "description": convertedContent,
+                "excerpt": excerpt,
+                "featuredImage": featuredImage,
+                "featured": featured,
+                "category": category,
+                "author": author,
+                "tags": tags
+            })
+         }).then(response => {
+                  console.log(response)
+                document.getElementById("blogForm").reset();
+                // setLoader(false)
+                setSuccess('Your Blog has been successfully posted.');
+                setEditorState(EditorState.createEmpty());
+              })
+        //   axios.post('https://newsserverapi.herokuapp.com/post', {body:'test'}, {
+        //       headers: {
+        //           'Content-Type':  'application/x-www-form-urlencoded'
+        //       }
+        //   })
+        //   .then(response => {
+        //       console.log(response)
+        //     document.getElementById("blogForm").reset();
+        //     // setLoader(false)
+        //     setSuccess('Thank you for your application. We will contact you shortly.')
+        //   }).catch(error => {
+        //     console.log(error.response)
+        // })
        }
 
 
@@ -54,21 +99,20 @@ function PostBlog(){
             </Header>
        <MainContainer> 
           
-    
        <h1 style={{textAlign:'center'}}>Post a blog</h1>
       
-       <form encType="multipart/form-data" id="blogForm" method="POST" onSubmit={(e)=>submitHandler(e)}>
+       <form  id="blogForm" method="post" onSubmit={(e)=>submitHandler(e)}>
            <label className="labelClass">Title: <span className="spanClass">*</span></label>
-           <input className="inputClass" type="text" name="title" required/>
+           <input className="inputClass" type="text" name="title" onChange={event => setTitle(event.target.value)} required/>
             <br/>
            <label className="labelClass">Slug:  <span className="spanClass">*</span></label>
-           <input className="inputClass" type="text" name="slug" required/>
+           <input className="inputClass" type="text" name="slug" onChange={event => setSlug(event.target.value)} required/>
            <br/>
            <label className="labelClass">Link: </label>
-           <input className="inputClass" type="text" name="link"/>
+           <input className="inputClass" type="text" name="link" onChange={event => setLink(event.target.value)}/>
            <br/>
            <label>Description: </label>
-           <input type="hidden" value={convertedContent} name="description"/>
+      
            <EditorStyles>
       <Editor
       editorState={editorState}
@@ -81,26 +125,27 @@ function PostBlog(){
      </EditorStyles>
            <br/>
            <label className="labelClass">Excerpt: <span className="spanClass">*</span></label>
-           <input className="inputClass" type="text" name="link" required/>
+           <input className="inputClass" type="text" name="excerpt" onChange={event => setExcerpt(event.target.value)} required/>
            <br/>
            <label className="labelClass">Featured Image: <span className="spanClass">*</span></label>
-           <input className="inputClass" type="file" name="featured_image" accept="image/*" required></input>
+           <input className="inputClass" type="file" name='featuredImage' accept="image/png, image/jpeg" onChange={event => setFeaturedImage(event.target.files[0])} required></input>
            <br/>
            <label className="labelClass">Featured: <span className="spanClass">*</span></label>
-          <select className="inputClass" name="featured">
-           <option value="Yes">Yes</option>
-           <option value="No">No</option>
+          <select className="inputClass" name="featured" onChange={event => setFeatured(event.target.value)}>
+           <option value="">-Select Option-</option>   
+           <option value="true">Yes</option>
+           <option value="false">No</option>
           </select>
           <br/>
           <label className="labelClass">Category: <span className="spanClass">*</span></label>
-          <select className="inputClass" name="category" required>
+          <select className="inputClass" name="category" onChange={event => setCategory(event.target.value)} required>
            <option value="">-Select One-</option>
            <option value="1">Star News</option>
            <option value="2">Star Blogs</option>
           </select>
           <br/>
           <label className="labelClass">Author: <span className="spanClass">*</span></label>
-          <select className="inputClass" name="author" required>
+          <select className="inputClass" name="author" onChange={event => setAuthor(event.target.value)} required>
            <option value="">-Select One-</option>
            <option value="1">Aamir Saeed</option>
            <option value="2">Arif Mustafa</option>
@@ -108,12 +153,13 @@ function PostBlog(){
 
           <br/>
           <label className="labelClass">Tags: </label>
-          <input className="inputClass" type="text" name="tags" required></input>
+          <input className="inputClass" type="text" name="tags" onChange={event => setTags(event.target.value)} required></input>
           <div style={{textAlign:'center'}}>
           <button className="inputSubmitClass">Submit</button>
           </div>
           <br/>
         {success}
+        <br></br>
        </form>
        </MainContainer>
        </div>
