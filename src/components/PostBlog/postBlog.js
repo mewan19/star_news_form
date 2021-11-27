@@ -32,7 +32,7 @@ function PostBlog(){
       
         //  setLoader(true);
           const data = new FormData(e.target);
-          axios.post('#', data, {
+          axios.post('https://newsserverapi.herokuapp.com/post', data, {
               headers: {
                   'Content-Type': 'application/json'
               }
@@ -49,7 +49,7 @@ function PostBlog(){
     return (
         <div>
             <Header>
-                <img src={blogsLogo} alt="logo"></img>
+                <img src={blogsLogo}  alt="logo"></img>
                 <br/> <br/>
             </Header>
        <MainContainer> 
@@ -186,7 +186,7 @@ color: #333;
 `
 
 const Header=styled.div`
-
+text-align:center;
 `
 
 
