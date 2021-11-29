@@ -95,7 +95,7 @@ function PostBlog(){
            <label className="labelClass">Title: <span className="spanClass">*</span></label>
            <input className="inputClass" type="text" name="title" onChange={event => setTitle(event.target.value)} required/>
             <br/>
-           <label className="labelClass">Slug:  <span className="spanClass">*</span></label>
+           <label className="labelClass">Slug: </label>
            <input className="inputClass" type="text" name="slug" onChange={event => setSlug(event.target.value)} required/>
            <br/>
            <label className="labelClass">Link: </label>
