@@ -40,18 +40,17 @@ function PostBlog(){
       const [author, setAuthor] = React.useState('');
       const [tags, setTags] = React.useState('');
       
-
+  
 
       const submitHandler = e => {
         e.preventDefault();
       
         //  setLoader(true);
-      
-        // if(convertedContent=='')
-        // {
-        //   setSuccess('Description is required');
-        //   return false;
-        // }
+        if(editorState.getCurrentContent().hasText()==false)
+        {
+          setSuccess('Description is required');
+          return false;
+        }
 
          fetch('https://newsserverapi.herokuapp.com/post',{
              method:"Post",
