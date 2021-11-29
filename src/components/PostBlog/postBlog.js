@@ -5,7 +5,7 @@ import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { convertToHTML } from 'draft-convert';
 import blogsLogo from '../../assets/star-blogs.png';
-import axios from "axios";
+
 
 function PostBlog(){
 
@@ -33,7 +33,6 @@ function PostBlog(){
       const [title, setTitle] = React.useState('');
       const [slug, setSlug] = React.useState('');
       const [link, setLink] = React.useState('');
-      //const [description, setDescription] = React.useState('');
       const [excerpt, setExcerpt] = React.useState('');
       const [featuredImage, setFeaturedImage] = React.useState("");
       const [featured, setFeatured] = React.useState('');
@@ -46,8 +45,6 @@ function PostBlog(){
       
         //  setLoader(true);
       
-       
-       
        
 
          fetch('https://newsserverapi.herokuapp.com/post',{
@@ -75,19 +72,7 @@ function PostBlog(){
                 setSuccess('Your Blog has been successfully posted.');
                 setEditorState(EditorState.createEmpty());
               })
-        //   axios.post('https://newsserverapi.herokuapp.com/post', {body:'test'}, {
-        //       headers: {
-        //           'Content-Type':  'application/x-www-form-urlencoded'
-        //       }
-        //   })
-        //   .then(response => {
-        //       console.log(response)
-        //     document.getElementById("blogForm").reset();
-        //     // setLoader(false)
-        //     setSuccess('Thank you for your application. We will contact you shortly.')
-        //   }).catch(error => {
-        //     console.log(error.response)
-        // })
+        
        }
 
 
@@ -159,7 +144,7 @@ function PostBlog(){
           </div>
           <br/>
         {success}
-        <br></br>
+        <br/><br/>
        </form>
        </MainContainer>
        </div>
