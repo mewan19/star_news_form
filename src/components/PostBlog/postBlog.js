@@ -40,12 +40,18 @@ function PostBlog(){
       const [author, setAuthor] = React.useState('');
       const [tags, setTags] = React.useState('');
       
+
+
       const submitHandler = e => {
         e.preventDefault();
       
         //  setLoader(true);
       
-       
+        // if(convertedContent=='')
+        // {
+        //   setSuccess('Description is required');
+        //   return false;
+        // }
 
          fetch('https://newsserverapi.herokuapp.com/post',{
              method:"Post",
@@ -96,7 +102,7 @@ function PostBlog(){
            <label className="labelClass">Link: </label>
            <input className="inputClass" type="text" name="link" onChange={event => setLink(event.target.value)}/>
            <br/>
-           <label>Description: </label>
+           <label>Description: <span className="spanClass">*</span></label>
       
            <EditorStyles>
       <Editor
